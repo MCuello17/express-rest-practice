@@ -1,0 +1,26 @@
+{
+  "name": "express-rest-practice",
+  "version": "1.1.0",
+  "description": "Express REST API practice exercise",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MCuello17/express-rest-practice.git"
+  },
+  "author": "MCuello17",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MCuello17/express-rest-practice/issues"
+  },
+  "homepage": "https://github.com/MCuello17/express-rest-practice#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.9"
+  }
+}
