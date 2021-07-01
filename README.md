@@ -1,4 +1,4 @@
-# Express REST API exercise (v1.3.0)
+# Express REST API exercise (v3.0.0)
 This is an Express REST API practice exercise.
 
 To run the server simply write the following in your terminal:
@@ -13,6 +13,9 @@ To run the server simply write the following in your terminal:
 * **(1.3.0)** Added [mysql2](https://www.npmjs.com/package/mysql2) and [sequelize](https://www.npmjs.com/package/sequelize) packages.
 * **(1.4.0)** Added [multer](https://www.npmjs.com/package/multer) package.
 * **(2.0.0)** Added post functionality.
+* **(2.1.0)** Added [bcryptjs](https://www.npmjs.com/package/bcryptjs) package.
+* **(2.2.0)** Added [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken) package for restful authentication.
+* **(3.0.0)** Added authorization and user functionality.
 
 ## Dependencies:
 * [Express](https://www.npmjs.com/package/express)
@@ -20,6 +23,8 @@ To run the server simply write the following in your terminal:
 * [mysql2](https://www.npmjs.com/package/mysql2)
 * [sequelize](https://www.npmjs.com/package/sequelize)
 * [multer](https://www.npmjs.com/package/multer)
+* [bcryptjs](https://www.npmjs.com/package/bcryptjs)
+* [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken)
 
 ## Dev Dependencies:
 * [Nodemon](https://www.npmjs.com/package/nodemon)

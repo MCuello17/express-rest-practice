@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const { validationResult } = require('express-validator/check');
 const Post = require('../models/post');
+const User = require('../models/user');
 
 
 exports.getPosts = (req, res, next) => {
@@ -18,11 +19,6 @@ exports.getPosts = (req, res, next) => {
             });
         })
         .then(posts => {
-            posts = posts.map(post => {
-                post = post.toJSON();
-                post = { ...post, creator: {name: "Test User"}};
-                return post;
-            });
             res.status(200).json({
                 message: 'Posts fetched',
                 posts: posts,
@@ -57,11 +53,10 @@ exports.createPost = (req, res, next) => {
     Post.create({
         title: title,
         content: content,
-        imageUrl: imageUrl
+        imageUrl: imageUrl,
+        creator: req.userId
     })
     .then(post => {
-        post = post.toJSON();
-        post = { ...post, creator: {name: "Test User"}};
         res.status(201).json({
             message: "Post Created Successfully",
             post: post
@@ -108,7 +103,6 @@ exports.editPost = (req, res, next) => {
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
-        console.log(errors);
         const error = new Error("Validation failed, data incorrect!");
         error.statusCode = 422;
         throw error;
@@ -129,6 +123,12 @@ exports.editPost = (req, res, next) => {
                 throw error;
             }
 
+            if (post.creator !== req.userId) {
+                const error = new Error("Not authorized");
+                error.statusCode = 403;
+                throw error;
+            }
+
             if (imageUrl !== post.imageUrl) clearImage(post.imageUrl);
 
             post.title = title;
@@ -145,7 +145,6 @@ exports.editPost = (req, res, next) => {
             })
         })
         .catch(err => {
-            console.log(err);
             if (!err.statusCode) err.statusCode = 500;
             next(err);
         })
@@ -161,6 +160,13 @@ exports.deletePost = (req, res, next) => {
                 error.statusCode = 404;
                 throw error;
             }
+
+            if (post.creator !== req.userId) {
+                const error = new Error("Not authorized");
+                error.statusCode = 403;
+                throw error;
+            }
+
             clearImage(post.imageUrl);
             return post.destroy();
         })
@@ -171,7 +177,6 @@ exports.deletePost = (req, res, next) => {
             });
         })
         .catch(err => {
-            console.log(err);
             if (!err.statusCode) err.statusCode = 500;
             next(err);
         })
